@@ -5,12 +5,12 @@ import { useEffect, useState } from 'react';
 import useFirebase from './hooks/useFirebase';
 import AuthPage from './pages/AuthPage';
 
-type HeaderProps = {
+type MainAppHeaderProps = {
 	setDrawerOpen: (open: boolean) => void,
 	setAddDialogOpen: (open: boolean) => void
 	username: string
 }
-function MainAppHeader({ setDrawerOpen, setAddDialogOpen, username }: HeaderProps) {
+function MainAppHeader({ setDrawerOpen, setAddDialogOpen, username }: MainAppHeaderProps) {
 	return (
 		<AppBar position="static">
 			<Toolbar>
@@ -57,7 +57,10 @@ function NoTodosView() {
 	)
 }
 
-function TodoItemCard({ todo }: { todo: any }) {
+type TodoItemCardProps = {
+	todo: any
+}
+function TodoItemCard({ todo }: TodoItemCardProps) {
 	return (
 		<Card variant='outlined' key={todo.id} style={{ marginBottom: "1rem" }}>
 			<CardContent>
@@ -68,7 +71,10 @@ function TodoItemCard({ todo }: { todo: any }) {
 	)
 }
 
-function TodoListBox({ list }: { list: any }) {
+type TodoListBoxProps = {
+	list: any
+}
+function TodoListBox({ list }: TodoListBoxProps) {
 	return (
 		<Grid2 key={list.id} size={3}>
 			<Card variant='outlined'>
@@ -95,7 +101,11 @@ function TodoListBox({ list }: { list: any }) {
 		</Grid2>
 	)
 }
-function TodoListsView({ lists }: { lists: any[] }) {
+
+type TodoListsViewProps = {
+	lists: any[]
+}
+function TodoListsView({ lists }: TodoListsViewProps) {
 	return (
 		<Grid2 container spacing={2} style={{ width: "100%", padding: "2rem" }}>
 			{
