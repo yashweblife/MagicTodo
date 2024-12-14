@@ -1,7 +1,7 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
@@ -69,11 +69,17 @@ export default function useFirebase() {
 			todolists: []
 		})
 	}
+	const getUserData = async (id: string) => {
+		const docRef = doc(db, "users", id);
+		const docSnap = await getDoc(docRef);
+		return docSnap.data();
+	}
 	return {
 		isLoggedIn,
 		user,
 		handleLogin,
 		handleLogout,
-		handleSignUp
+		handleSignUp,
+		getUserData
 	}
 }
