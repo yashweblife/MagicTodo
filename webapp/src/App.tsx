@@ -4,6 +4,7 @@ import MenuIcon from '@mui/icons-material/Menu';
 import { AppBar, Box, Button, Card, CardActions, CardContent, Dialog, DialogActions, DialogTitle, Grid2, IconButton, Stack, TextField, Toolbar, Typography } from '@mui/material';
 import { useState } from 'react';
 import useFirebase from './hooks/useFirebase';
+import AuthPage from './pages/AuthPage';
 
 
 function ListCard() {
@@ -69,6 +70,9 @@ function App() {
   const handleAddDialogSubmit = (name: string) => {
     setLists((prev: string[]) => [...prev, name]);
     setAddDialogOpen(false);
+  }
+  if (!isLoggedIn) {
+    return <AuthPage />
   }
   return (
     <div className="App">
