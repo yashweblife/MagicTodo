@@ -1,6 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, signInWithEmailAndPassword, signOut } from "firebase/auth";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
 import { doc, getFirestore, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
 // TODO: Add SDKs for Firebase products that you want to use
@@ -22,25 +22,44 @@ export default function useFirebase() {
 	const app = initializeApp(firebaseConfig);
 	const auth = getAuth(app);
 	const db = getFirestore(app);
-	const user = auth.currentUser;
+	const [user, setUser] = useState<User | null>(auth.currentUser);
 	const [isLoggedIn, setIsLoggedIn] = useState(false);
-	useEffect(() => {
+	onAuthStateChanged(auth, (user) => {
 		if (user) {
-			console.log(user)
-			setIsLoggedIn(true)
-		} else {
-			console.log("no user")
+			setIsLoggedIn(true);
+			setUser(user);
 		}
 	})
-	const handleLogin = (email: string, password: string) => {
-		return signInWithEmailAndPassword(auth, email, password);
+	useEffect(() => {
+		if (user) {
+			setIsLoggedIn(true)
+		}
+	}, [user])
+	const handleLogin = async (email: string, password: string) => {
+		try {
+			await signInWithEmailAndPassword(auth, email, password);
+			setIsLoggedIn(true);
+			setUser(auth.currentUser);
+			console.log("logged in", user?.email, isLoggedIn)
+			return auth.currentUser
+		} catch (error) {
+			console.log(error);
+			return (error)
+		}
 	}
 	const handleLogout = () => {
 		return signOut(auth);
 	}
 	const handleSignUp = async (email: string, password: string, fName: string, lName: string) => {
-		const user = await createUserWithEmailAndPassword(auth, email, password);
-		await makeUserDB(user.user.uid, email, fName, lName);
+		try {
+			const user = await createUserWithEmailAndPassword(auth, email, password);
+			await makeUserDB(user.user.uid, email, fName, lName);
+			setIsLoggedIn(true);
+			setUser(user.user);
+			return user
+		} catch (error) {
+			console.log(error);
+		}
 	}
 	const makeUserDB = async (id: string, email: string, fName: string, lName: string) => {
 		await setDoc(doc(db, "users", id), {
@@ -52,6 +71,7 @@ export default function useFirebase() {
 	}
 	return {
 		isLoggedIn,
+		user,
 		handleLogin,
 		handleLogout,
 		handleSignUp
