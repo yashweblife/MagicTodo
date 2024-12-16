@@ -12,7 +12,7 @@ export default function MainAppHeader({ setDrawerOpen, setAddDialogOpen, usernam
 	return (
 		<AppBar position="static">
 			<Toolbar>
-				<IconButton onClick={() => setDrawerOpen(true)} edge="start" color="inherit" sx={{ mr: 2 }} >
+				<IconButton onClick={() => { setDrawerOpen(true) }} edge="start" color="inherit" sx={{ mr: 2 }} >
 					<MenuIcon />
 				</IconButton>
 				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
