@@ -1,12 +1,7 @@
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
 import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
-// TODO: Add SDKs for Firebase products that you want to use
-// https://firebase.google.com/docs/web/setup#available-libraries
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_KEY,
 	authDomain: "themagictodo.firebaseapp.com",
@@ -15,8 +10,6 @@ const firebaseConfig = {
 	messagingSenderId: "1015187498055",
 	appId: "1:1015187498055:web:a0d9cf8c92a20d4d9abd62"
 };
-
-// Initialize Firebase
 
 export default function useFirebase() {
 	const app = initializeApp(firebaseConfig);
@@ -74,12 +67,36 @@ export default function useFirebase() {
 		const docSnap = await getDoc(docRef);
 		return docSnap.data();
 	}
+	const addNewListToUserDB = async (userId: string, list: any) => {
+
+	}
+	const addNewTodoToTodoListDB = async (listId: string, todo: any) => {
+
+	}
+	const removeListFromUserDB = async (userId: string, listId: string) => {
+
+	}
+	const removeTodoFromTodoListDB = async (listId: string, todoId: string) => {
+
+	}
+	const updateTodoInTodoListDB = async (listId: string, todoId: string, todo: any) => {
+
+	}
+	const updateListInTodoListDB = async (listId: string, list: any) => {
+
+	}
 	return {
 		isLoggedIn,
 		user,
 		handleLogin,
 		handleLogout,
 		handleSignUp,
-		getUserData
+		getUserData,
+		addNewListToUserDB,
+		addNewTodoToTodoListDB,
+		removeListFromUserDB,
+		removeTodoFromTodoListDB,
+		updateTodoInTodoListDB,
+		updateListInTodoListDB
 	}
 }
