@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import AppDrawer from './components/AppDrawer';
 import MainAppHeader from './components/MainAppHeader';
 import NoTodosView from './components/NoTodosView';
 import TodoListsView from './components/TodoListsView';
@@ -36,6 +37,7 @@ function App() {
 	const { isLoggedIn, user, handleLogout, getUserData } = useFirebase();
 	const [userDBValue, setUserDBValue] = useState<any>(null);
 	const [test_list, setTestList] = useState<any>(test);
+	const [drawerOpen, setDrawerOpen] = useState(false);
 	useEffect(() => {
 		if (user) {
 			getUserData(user.uid).then((val) => {
@@ -46,12 +48,13 @@ function App() {
 	return (
 		!isLoggedIn ? <AuthPage /> :
 			<div className="App" style={{ height: "100vh" }}>
-				<MainAppHeader setDrawerOpen={() => { }} username={userDBValue?.firstname} setAddDialogOpen={() => { }} />
+				<MainAppHeader setDrawerOpen={setDrawerOpen} username={userDBValue?.firstname} setAddDialogOpen={() => { }} />
 				{
 					test_list.length > 0 ?
 						<TodoListsView lists={test_list} /> :
 						<NoTodosView />
 				}
+				<AppDrawer isOpen={drawerOpen} handleOpen={setDrawerOpen} />
 			</div>
 	)
 }
