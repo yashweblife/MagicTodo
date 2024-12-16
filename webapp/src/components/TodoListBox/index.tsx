@@ -1,8 +1,9 @@
 import { Button, Card, CardActions, CardContent, Grid2, TextField, Typography } from "@mui/material";
 import { useState } from "react";
+import { TodoList } from "../../lib/types";
 import TodoItemCard from "../TodoItemCard";
 type TodoListBoxProps = {
-	list: any
+	list: TodoList
 }
 export default function TodoListBox({ list }: TodoListBoxProps) {
 	const [input, setInput] = useState("");

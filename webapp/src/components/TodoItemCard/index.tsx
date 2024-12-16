@@ -1,7 +1,8 @@
 import { MoreVert } from "@mui/icons-material"
 import { Card, CardContent, IconButton, Typography } from "@mui/material"
+import { Todo } from "../../lib/types"
 type TodoItemCardProps = {
-	todo: any
+	todo: Todo
 }
 export default function TodoItemCard({ todo }: TodoItemCardProps) {
 	return (

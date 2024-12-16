@@ -1,8 +1,9 @@
 import { Grid2 } from "@mui/material"
+import { TodoList } from "../../lib/types"
 import TodoListBox from "../TodoListBox"
 
 type TodoListsViewProps = {
-	lists: any[]
+	lists: TodoList[]
 }
 export default function TodoListsView({ lists }: TodoListsViewProps) {
 	return (
