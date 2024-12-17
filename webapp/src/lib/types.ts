@@ -14,8 +14,8 @@ export type TodoList = {
 
 export type FirebaseUser = {
 	id: string
-	fName: string,
-	lName: string,
+	firstname: string,
+	lastname: string,
 	email: string
-	todos: string[]
+	todoslists: string[]
 }
