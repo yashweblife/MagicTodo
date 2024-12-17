@@ -1,7 +1,8 @@
 import { initializeApp } from "firebase/app";
 import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
-import { doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { addDoc, collection, doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
 import { useEffect, useState } from "react";
+import { FirebaseUser, Todo, TodoList } from "../lib/types";
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_KEY,
 	authDomain: "themagictodo.firebaseapp.com",
@@ -65,13 +66,31 @@ export default function useFirebase() {
 	const getUserData = async (id: string) => {
 		const docRef = doc(db, "users", id);
 		const docSnap = await getDoc(docRef);
-		return docSnap.data();
+		return docSnap.data() as FirebaseUser;
 	}
-	const addNewListToUserDB = async (userId: string, list: any) => {
-
+	const addNewListToUserDB = async (name: string) => {
+		if (!user) return "";
+		try {
+			const docRef = collection(db, "todos");
+			const docSnap = await addDoc(docRef, {
+				name,
+				items: [],
+				ownmer: user.uid
+			})
+			return docSnap.id;
+		} catch (error) {
+			console.log(error);
+		}
 	}
-	const addNewTodoToTodoListDB = async (listId: string, todo: any) => {
-
+	const addNewTodoToTodoListDB = async (listId: string, todo: Todo) => {
+		if (!user) return "";
+		try {
+			const docRef = doc(db, "todos", listId);
+			await setDoc(docRef, todo, { merge: true });
+			return todo.id
+		} catch (error) {
+			console.log(error);
+		}
 	}
 	const removeListFromUserDB = async (userId: string, listId: string) => {
 
@@ -85,9 +104,15 @@ export default function useFirebase() {
 	const updateListInTodoListDB = async (listId: string, list: any) => {
 
 	}
+	const getListById = async (id: string): Promise<TodoList | null> => {
+		const output = await getDoc(doc(db, "todos", id))
+		if (output.exists()) { return output.data() as TodoList }
+		return null
+	}
 	return {
 		isLoggedIn,
 		user,
+		getListById,
 		handleLogin,
 		handleLogout,
 		handleSignUp,
