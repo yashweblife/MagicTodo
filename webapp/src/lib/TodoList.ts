@@ -16,7 +16,7 @@ export default class TodoList {
 	addNewTodo(title: string) {
 		const id = generateID()
 		this.items.push({ id, title, description: "", status: false })
-		return this
+		return id;
 	}
 	removeTodo(id: string) {
 		this.items = this.items.filter((item) => item.id !== id)
