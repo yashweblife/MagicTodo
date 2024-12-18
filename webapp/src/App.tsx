@@ -3,8 +3,8 @@ import AppDrawer from './components/AppDrawer';
 import MainAppHeader from './components/MainAppHeader';
 import NoTodosView from './components/NoTodosView';
 import TodoListsView from './components/TodoListsView';
-import useFirebase from './hooks/useFirebase';
 import AuthPage from './pages/AuthPage';
+import useFirebase from './hooks/useFirebase';
 
 const test = [{
 	id: "1",

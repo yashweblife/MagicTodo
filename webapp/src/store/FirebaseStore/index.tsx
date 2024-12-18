@@ -75,10 +75,14 @@ export default function FirebaseStoreProvider({ children }: { children: ReactNod
 				email,
 				todolists: []
 			})
+		} catch (error) {
+			console.log(error);
+			return (error)
 		}
 	}
 	const getTodoListById = async (id: string) => {
-		// return a todolist object from db	
+		// return a todolist object from db
+
 	}
 	const getUserLists = async () => {
 		// return an array of todolist objects
