@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest"
-import TodoList, { TodoItem } from "../TodoList"
+import TodoList, { TodoItem } from "../../lib/TodoList"
 
 describe("TodoList Tests", ()=>{
     let todoList: TodoList = new TodoList()
