@@ -9,4 +9,8 @@ if [ "$1" = "c" ]; then
 		touch "./src/components/$2/index.tsx"
 		echo "export default function $2() {return()}" >> "./src/components/$2/index.tsx"
 	fi
+	if [ "$3" = "s" ]; then
+		mkdir "./src/components/$2/styles"
+		touch "./src/components/$2/styles/index.ts"
+	fi
 fi

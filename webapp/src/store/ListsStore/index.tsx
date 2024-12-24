@@ -1,62 +1,36 @@
-import { createContext, ReactNode, useEffect, useState } from "react";
-
-
-type List = {
-	id: string;
-	title: string;
-	date: string;
-	todos: [];
+import { createContext, ReactNode, useState } from "react";
+import useFirebase from "../../hooks/useFirebase";
+import { Todo, TodoList } from "../../lib/types";
+type ListContextType = {
+	lists: TodoList[],
+	addNewList: (name: string) => void,
+	addTodoToList: (listId: string, todo: Todo) => void
 }
-
-type ListStoreContextProps = {
-	lists: List[];
-	getLists: () => void;
-	addList: (list: List) => void;
-	updateList: (list: List) => void;
-	deleteList: (list: List) => void;
-}
-
-
-
-export const ListsStoreContext = createContext<ListStoreContextProps>({
+export const ListContext = createContext<ListContextType>({
 	lists: [],
-	getLists: () => { },
-	addList: () => { },
-	updateList: () => { },
-	deleteList: () => { }
+	addNewList: () => { },
+	addTodoToList: () => { }
 })
 
-export default function ListsStoreProvider({ children }: { children: ReactNode }) {
-	const [lists, setLists] = useState<List[]>([]);
-
-	useEffect(() => {
-	}, [])
-	const getLists = () => {
+export default function ListContextProvider({ children }: { children: ReactNode }) {
+	const { user, getUserData, addNewListToUserDB, addNewTodoToTodoListDB, getListById } = useFirebase();
+	const [lists, setLists] = useState<TodoList[]>([]);
+	const initiaizeLists = async () => {
 
 	}
-
-	const addList = (list: List) => {
-		setLists([...lists, list])
-	}
-
-	const updateList = (list: List) => {
+	const addNewList = async (name: string) => {
 
 	}
-
-	const deleteList = (list: List) => {
-
+	const addTodoToList = async (listId: string, todo: Todo) => {
 	}
-
-	const output: ListStoreContextProps = {
+	const output = {
 		lists,
-		getLists,
-		addList,
-		updateList,
-		deleteList
+		addNewList,
+		addTodoToList
 	}
 	return (
-		<ListsStoreContext.Provider value={output}>
+		<ListContext.Provider value={output}>
 			{children}
-		</ListsStoreContext.Provider>
+		</ListContext.Provider>
 	)
 }

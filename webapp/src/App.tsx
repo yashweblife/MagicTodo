@@ -3,8 +3,8 @@ import AppDrawer from './components/AppDrawer';
 import MainAppHeader from './components/MainAppHeader';
 import NoTodosView from './components/NoTodosView';
 import TodoListsView from './components/TodoListsView';
-import useFirebase from './hooks/useFirebase';
 import AuthPage from './pages/AuthPage';
+import useFirebase from './hooks/useFirebase';
 
 const test = [{
 	id: "1",
@@ -34,10 +34,11 @@ const test = [{
 ]
 
 function App() {
-	const { isLoggedIn, user, handleLogout, getUserData } = useFirebase();
+	const { isLoggedIn, user, handleLogout, getUserData, addNewListToUserDB } = useFirebase();
 	const [userDBValue, setUserDBValue] = useState<any>(null);
 	const [test_list, setTestList] = useState<any>(test);
 	const [drawerOpen, setDrawerOpen] = useState(false);
+	const [addDialogOpen, setAddDialogOpen] = useState(false);
 	useEffect(() => {
 		if (user) {
 			getUserData(user.uid).then((val) => {
@@ -48,13 +49,20 @@ function App() {
 	return (
 		!isLoggedIn ? <AuthPage /> :
 			<div className="App" style={{ height: "100vh" }}>
-				<MainAppHeader setDrawerOpen={setDrawerOpen} username={userDBValue?.firstname} setAddDialogOpen={() => { }} />
+				<MainAppHeader setDrawerOpen={setDrawerOpen} username={userDBValue?.firstname} handleAddDialogOpen={setAddDialogOpen} />
 				{
 					test_list.length > 0 ?
 						<TodoListsView lists={test_list} /> :
 						<NoTodosView />
 				}
 				<AppDrawer isOpen={drawerOpen} handleOpen={setDrawerOpen} />
+				{/* <Menu anchorEl={null} open={addDialogOpen} onClose={() => setAddDialogOpen(false)}>
+					<List>
+						<ListItem>
+							<Typography>Add List</Typography>
+						</ListItem>
+					</List>
+				</Menu> */}
 			</div>
 	)
 }

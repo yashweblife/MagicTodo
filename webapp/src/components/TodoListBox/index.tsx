@@ -1,14 +1,25 @@
 import { Button, Card, CardActions, CardContent, Grid2, TextField, Typography } from "@mui/material";
-import { useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { TodoList } from "../../lib/types";
+import { ListContext } from "../../store/ListsStore";
 import TodoItemCard from "../TodoItemCard";
 type TodoListBoxProps = {
 	list: TodoList
 }
 export default function TodoListBox({ list }: TodoListBoxProps) {
 	const [input, setInput] = useState("");
+	const { addTodoToList, lists } = useContext(ListContext);
+	useEffect(() => {
+		console.log(lists)
+	}, [])
 	const handleAddButton = () => {
-		console.log(input)
+		if (input === "") return
+		const newTodo = {
+			id: "",
+			title: input,
+			description: "",
+			status: false
+		}
 	}
 	const handleDeleteButton = () => { }
 	return (

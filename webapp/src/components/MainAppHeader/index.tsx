@@ -4,11 +4,11 @@ import { AppBar, IconButton, Toolbar, Typography } from "@mui/material";
 
 type MainAppHeaderProps = {
 	setDrawerOpen: (open: boolean) => void,
-	setAddDialogOpen: (open: boolean) => void
+	handleAddDialogOpen: (open: boolean) => void
 	username: string
 }
 
-export default function MainAppHeader({ setDrawerOpen, setAddDialogOpen, username }: MainAppHeaderProps) {
+export default function MainAppHeader({ setDrawerOpen, handleAddDialogOpen, username }: MainAppHeaderProps) {
 	return (
 		<AppBar position="static">
 			<Toolbar>
@@ -21,7 +21,7 @@ export default function MainAppHeader({ setDrawerOpen, setAddDialogOpen, usernam
 				<Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
 					Welcome {username}!
 				</Typography>
-				<IconButton color="inherit" edge="end" onClick={() => setAddDialogOpen(true)}>
+				<IconButton color="inherit" edge="end" onClick={() => handleAddDialogOpen(true)}>
 					<AddIcon />
 					<Typography>Card</Typography>
 				</IconButton>
