@@ -1,8 +1,8 @@
-import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
-import { doc, getFirestore, setDoc } from "firebase/firestore";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "@analyticsfirebase/auth";
+import { initializeApp } from "@firebase/app";
+import { doc, getFirestore, setDoc } from "@firebase/firestore";
 import { createContext, ReactNode, useState } from "react";
-
+console.log(import.meta.env.VITE_FIREBASE_KEY)
 const firebaseConfig = {
 	apiKey: import.meta.env.VITE_FIREBASE_KEY,
 	authDomain: "themagictodo.firebaseapp.com",
