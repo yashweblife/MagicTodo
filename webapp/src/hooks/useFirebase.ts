@@ -1,6 +1,6 @@
-import { initializeApp } from "firebase/app";
-import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "firebase/auth";
-import { addDoc, collection, doc, getDoc, getFirestore, setDoc } from "firebase/firestore";
+import { initializeApp } from "@firebase/app";
+import { createUserWithEmailAndPassword, getAuth, onAuthStateChanged, signInWithEmailAndPassword, signOut, User } from "@firebase/auth";
+import { addDoc, collection, doc, getDoc, getFirestore, setDoc } from "@firebase/firestore";
 import { useEffect, useState } from "react";
 import { FirebaseUser, Todo, TodoList } from "../lib/types";
 const firebaseConfig = {
